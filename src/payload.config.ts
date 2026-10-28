@@ -32,6 +32,14 @@ import { WorkIntro } from './globals/WorkIntro'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+// Temporary: shows which database host Vercel actually passes in (no credentials)
+try {
+  const dbUrl = new URL(process.env.DATABASE_URL || '')
+  console.log('[db]', process.env.VERCEL_ENV ?? 'local', `${dbUrl.username}@${dbUrl.host}`)
+} catch {
+  console.log('[db]', process.env.VERCEL_ENV ?? 'local', 'DATABASE_URL missing or not a valid URL')
+}
+
 export default buildConfig({
   admin: {
     user: Users.slug,
